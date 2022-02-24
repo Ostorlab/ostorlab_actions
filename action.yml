@@ -1,0 +1,17 @@
+name: ostorlab github action.
+description: ostorlab github action.
+inputs:
+  asset_path:
+    description: name of the file to scan.
+    required: true
+outputs:
+  status:
+    description: status of the scan
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.asset_path }}
+branding:
+  icon: "download-cloud"
+  color: "blue"
