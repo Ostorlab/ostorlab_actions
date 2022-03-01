@@ -2,12 +2,17 @@ on: [push]
 jobs:
   custom_test:
     runs-on: ubuntu-latest
-    name: Test lunch scan from mobile.
+    name: Test ostorlab ci actions.
     steps:
-      - name: Lunch scan
+      - uses: actions/checkout@v2
+      - name: Lunch Ostorlab scan
         id: start_scan
-        uses: . # Uses an action in the root directory
+        uses: ./
         with:
-          asset_path: my_apk.apk
-      - name: Check scan status
-        run: echo "${{ steps.start_scan.outputs.status }}."
+          plan: free
+          asset_type: android
+          target: andoird_apk
+          scan_title: title_scan_ci
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
+          break_on_risk_rating: HIEGHT
+          max_wait_minutes: 2
