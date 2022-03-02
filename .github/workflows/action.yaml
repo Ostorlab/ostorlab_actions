@@ -1,18 +1,20 @@
 on: [push]
 jobs:
-  custom_test:
+  ostorlab_test:
     runs-on: ubuntu-latest
     name: Test ostorlab ci actions.
     steps:
       - uses: actions/checkout@v2
+      - name: build ostorlab.apk
+        run: mv InsecureBankv2.apk ostorlab.apk
       - name: Lunch Ostorlab scan
         id: start_scan
         uses: ./
         with:
-          plan: free
-          asset_type: android
-          target: andoird_apk
-          scan_title: title_scan_ci
-          ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
-          break_on_risk_rating: HIEGHT
-          max_wait_minutes: 2
+          plan: rapid_static # Specify which plan to use for the scan (check plan section).
+          asset_type: android-apk # type of asset to scan.
+          target: ostorlab.apk # path for target tto scan.
+          scan_title: title_scan_ci # type a title for your scan.
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
+          break_on_risk_rating: HIGH
+          max_wait_minutes: 20

@@ -18,11 +18,11 @@ inputs:
     description: Api key from ostorlab.
     required: true
   break_on_risk_rating:
-      description: Api key from ostorlab.
-      required: true
+    description: Api key from ostorlab.
+    required: false
   max_wait_minutes:
-      description: maximum mintes to wait for scan results.
-      required: true
+    description: maximum mintes to wait for scan results.
+    required: false
 outputs:
   scan_id:
     description: id of the created scan.
