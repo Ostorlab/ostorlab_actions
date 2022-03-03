@@ -2,11 +2,11 @@ name: ostorlab github action.
 description: ostorlab github action.
 inputs:
   plan:
-    description: Specify which plan to use for scan.
+    description: Specifies your scan plan ( free (rapid_static) for community scans and static_dynamic_backend for full analysis)
     required: true
-    default: free
+    default: rapid_static
   asset_type:
-    description: Type of scan android|ios.
+    description: Type of asset to scan. (['android-apk', 'android-aab', 'ios-ipa'])
     required: true
   target:
     description: Path to file .apk|.ios file.
@@ -18,10 +18,10 @@ inputs:
     description: Api key from ostorlab.
     required: true
   break_on_risk_rating:
-    description: Api key from ostorlab.
+    description: Wait for the scan results and force the action to fail if the scan risk rating match or higher this value. (['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])
     required: false
   max_wait_minutes:
-    description: maximum mintes to wait for scan results.
+    description: Specifies the maximum number of minutes to wait for scan results.
     required: false
 outputs:
   scan_id:
