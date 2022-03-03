@@ -25,7 +25,8 @@ jobs:
    		 asset_type: android-apk 
    		 target: myApp.apk
 
-   		 can_title: title_scan_ci
+   		 scan_title: title_scan_ci
+
    		 ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
    		 break_on_risk_rating: HIGH 
    		 max_wait_minutes: 20 
