@@ -23,7 +23,8 @@ jobs:
    		with:
    		 plan: rapid_static 
    		 asset_type: android-apk 
-   		 target: andoird_apk.apk
+   		 target: myApp.apk
+
    		 can_title: title_scan_ci
    		 ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
    		 break_on_risk_rating: HIGH 
