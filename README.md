@@ -24,7 +24,6 @@ jobs:
    		 plan: rapid_static 
    		 asset_type: android-apk 
    		 target: myApp.apk
-
    		 scan_title: title_scan_ci
 
    		 ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
