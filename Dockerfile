@@ -1,5 +1,6 @@
 FROM python:3.8-alpine
 WORKDIR /ostorlab
+# test from branch add_ci_run
 RUN apk add git
 RUN git clone https://github.com/Ostorlab/ostorlab.git /ostorlab
 RUN cd /ostorlab

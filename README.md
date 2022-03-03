@@ -1,5 +1,5 @@
 # Ostorlab ci_can for GithubAction
-![enter image description here](https://i.ibb.co/XF3cwWw/image.png)
+![Ostorlab ci_can for GithubAction](https://i.ibb.co/XF3cwWw/image.png)
     
 Easily Integrate Ostorlab autonomous security testing for Android and iOS mobile apps to your build process on GitHub actions.
 
