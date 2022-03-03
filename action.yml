@@ -32,5 +32,5 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
 branding:
-  icon: "download-cloud"
+  icon: "shield"
   color: "blue"
