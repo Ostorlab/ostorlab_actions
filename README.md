@@ -38,7 +38,7 @@ jobs:
    	name: Test ostorlab ci actions.
    	steps:
    	 - uses: actions/checkout@v2
-   	 - name: Lunch Ostorlab scan
+   	 - name: Launch Ostorlab scan
    	   id: start_scan
    	   uses: actions/ostorlab_actions@v1
    		with:
