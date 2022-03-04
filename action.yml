@@ -1,5 +1,5 @@
-name: Ostorlab Actions.
-description: Scan your mobile application (.APK, AAB, IPA) for security and privacy issues.
+name: Ostorlab Security Scanner
+description: Scan mobile apps for outdated dependencies, hardcoded secrets, privacy leakages, and insecure code (Signup at ostorlab.co).
 inputs:
   plan:
     description: Specifies your scan plan ( free (rapid_static) for community scans and static_dynamic_backend for full analysis)
