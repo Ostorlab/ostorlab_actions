@@ -1,10 +1,10 @@
 name: Ostorlab Security Scanner
 description: Scan mobile apps for outdated dependencies, hardcoded secrets, privacy leakages, and insecure code (Signup at ostorlab.co).
 inputs:
-  plan:
-    description: Specifies your scan plan ( free (rapid_static) for community scans and static_dynamic_backend for full analysis)
+  scan_profile:
+    description: Specifies your scan profile ( free "fast_scan" for community scans and "full_scan" for full analysis)
     required: true
-    default: rapid_static
+    default: fast_scan
   asset_type:
     description: Type of asset to scan. (['android-apk', 'android-aab', 'ios-ipa'])
     required: true
