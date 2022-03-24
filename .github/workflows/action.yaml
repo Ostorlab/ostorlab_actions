@@ -11,7 +11,7 @@ jobs:
         id: start_scan
         uses: ./
         with:
-          plan: rapid_static # Specify which plan to use for the scan (check plan section).
+          scan_profile: fast_scan # Specify which scan profile to use for the scan (check scan section).
           asset_type: android-apk # type of asset to scan.
           target: ostorlab.apk # path for target tto scan.
           scan_title: title_scan_ci # type a title for your scan.
