@@ -42,7 +42,7 @@ jobs:
    	   id: start_scan
    	   uses: actions/ostorlab_actions@v1
    		with:
-   		 plan: rapid_static 
+   		 scan_profile: fast_scan 
    		 asset_type: android-apk 
    		 target: andoird_apk.apk
    		 can_title: title_scan_ci
@@ -55,7 +55,7 @@ jobs:
 
 The Github actions the following options:
     
- - **`plan`** *(['rapid_static', 'static_dynamic_backend'])*: [Required] - Specifies the scan plan ( `rapid_static` for fast static only analysis and `full analysis` for full static, dynamic and backend coverage).
+ - **`scan_profile`** *(['fast_scan', 'full_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast static only analysis and `full_scan` for full static, dynamic and backend coverage).
 - **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa'])*: [Required] - Target asset, Ostorlab supports APK, AAB and IPA.    
 - **`target`**: [Required] - target file to scan.    
 - **`ostorlab_api_key`**: [Required] -  API Key from Ostorlab portal.     
