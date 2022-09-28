@@ -31,24 +31,26 @@ The next steps is to a update your workflow to add an Ostorlab step to trigger t
 a rapid scan on an Android APK and failing the pipeline on vulnerabilities with `HIGH` severity.
     
 ```yaml   
-on: [push]  
+on: [ push ]
 jobs:
-   ostorlab_test:
-   	runs-on: ubuntu-latest
-   	name: Test ostorlab ci actions.
-   	steps:
-   	 - uses: actions/checkout@v2
-   	 - name: Launch Ostorlab scan
-   	   id: start_scan
-   	   uses: actions/ostorlab_actions@v1
-   		with:
-   		 scan_profile: fast_scan 
-   		 asset_type: android-apk 
-   		 target: andoird_apk.apk
-   		 can_title: title_scan_ci
-   		 ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
-   		 break_on_risk_rating: HIGH 
-   		 max_wait_minutes: 20 
+  ostorlab_test:
+    runs-on: ubuntu-latest
+    name: Test ostorlab ci actions.
+    steps:
+      - uses: actions/checkout@v2
+      - name: build ostorlab.apk
+        run: mv InsecureBankv2.apk ostorlab.apk
+      - name: Launch Ostorlab scan
+        id: start_scan
+        uses: Ostorlab/ostorlab_actions@v1.0.3
+        with:
+          scan_profile: fast_scan # Specify which scan profile to use for the scan (check scan section).
+          asset_type: android-apk # type of asset to scan.
+          target: ostorlab.apk # path for target tto scan.
+          scan_title: title_scan_ci # type a title for your scan.
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
+          break_on_risk_rating: HIGH # Wait for the scan results and force the action to fail if the scan risk is higher
+          max_wait_minutes: 30
 ```   
     
 ### Action inputs 

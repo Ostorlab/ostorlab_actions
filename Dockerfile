@@ -1,5 +1,6 @@
 FROM python:3.8-slim-buster as base
 FROM base as builder
+RUN apk add build-base
 RUN mkdir /install
 WORKDIR /install
 RUN pip install --prefix=/install ostorlab
