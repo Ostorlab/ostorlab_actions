@@ -31,7 +31,7 @@ The next steps is to a update your workflow to add an Ostorlab step to trigger t
 a rapid scan on an Android APK and failing the pipeline on vulnerabilities with `HIGH` severity.
     
 ```yaml   
-on: [ push ]
+on: [push]
 jobs:
   ostorlab_test:
     runs-on: ubuntu-latest
@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: build ostorlab.apk
         run: mv InsecureBankv2.apk ostorlab.apk
-      - name: Launch Ostorlab scan
+      - name: Lunch Ostorlab scan
         id: start_scan
         uses: Ostorlab/ostorlab_actions@v1.0.3
         with:
@@ -51,6 +51,9 @@ jobs:
           ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
           break_on_risk_rating: HIGH # Wait for the scan results and force the action to fail if the scan risk is higher
           max_wait_minutes: 30
+      - name: Get scan id
+        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can found the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
+
 ```   
     
 ### Action inputs 
