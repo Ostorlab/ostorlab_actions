@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: build ostorlab.apk
         run: mv InsecureBankv2.apk ostorlab.apk
-      - name: Lunch Ostorlab scan
+      - name: Launch Ostorlab scan
         id: start_scan
         uses: Ostorlab/ostorlab_actions@v1.0.3
         with:
