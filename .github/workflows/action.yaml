@@ -9,7 +9,7 @@ jobs:
         run: mv InsecureBankv2.apk ostorlab.apk
       - name: Lunch Ostorlab scan
         id: start_scan
-        uses: ./
+        uses: Ostorlab/ostorlab_actions@v1.0.3
         with:
           scan_profile: fast_scan # Specify which scan profile to use for the scan (check scan section).
           asset_type: android-apk # type of asset to scan.
@@ -19,4 +19,4 @@ jobs:
           break_on_risk_rating: HIGH # Wait for the scan results and force the action to fail if the scan risk is higher
           max_wait_minutes: 30
       - name: Get scan id
-        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }}"
+        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can found the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
