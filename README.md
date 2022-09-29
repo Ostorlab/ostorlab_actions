@@ -70,7 +70,7 @@ The Github actions the following options:
 
 ### Action outputs 
 
- - **`scan_id`** - The scan id is acceded using the following syntax ${{ steps.STEP_ID.outputs.scan_id }}.
+ - **`scan_id`** - The scan id is accessible using the following syntax ${{ steps.STEP_ID.outputs.scan_id }}.
 
 ### More details   
 - [ostorlab.co](https://www.ostorlab.co/)  
