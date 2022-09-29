@@ -52,7 +52,7 @@ jobs:
           break_on_risk_rating: HIGH # Wait for the scan results and force the action to fail if the scan risk is higher
           max_wait_minutes: 30
       - name: Get scan id
-        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can found the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
+        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 
 ```   
     
@@ -67,6 +67,10 @@ The Github actions the following options:
 - **`scan_title`**: [Optional] - A scan title to identify your scan.
 - **`break_on_risk_rating`** *(['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])*: [Optional] -  Wait for the scan results and force the action to fail if the risk rating match or is higher than the provided value.    
 - **`max_wait_minutes`**: [Optional] - Max wait time in minutes, pipeline will not fail if the scan times out.
+
+### Action outputs 
+
+ - **`scan_id`** - The scan id is acceded using the following syntax ${{ steps.STEP_ID.outputs.scan_id }}.
 
 ### More details   
 - [ostorlab.co](https://www.ostorlab.co/)  
