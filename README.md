@@ -85,7 +85,7 @@ The Github actions the following options:
 - **`break_on_risk_rating`** *(['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])*: [Optional] - Wait for the scan results and
   force the action to fail if the risk rating match or is higher than the provided value.
 - **`max_wait_minutes`**: [Optional] - Max wait time in minutes, pipeline will not fail if the scan times out.
-- **`extra`**: [Optional] - Max argument flags to pass to the Ostorlab ci-scan CLI. Common use case is passing the scan
+- **`extra`**: [Optional] - Extra argument flags to pass to the Ostorlab ci-scan CLI. Common use case is passing the scan
   test credentials.
 
 ### Action outputs
