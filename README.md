@@ -44,7 +44,7 @@ jobs:
         run: mv InsecureBankv2.apk ostorlab.apk
       - name: Launch Ostorlab scan
         id: start_scan
-        uses: Ostorlab/ostorlab_actions@v1.0.3
+        uses: Ostorlab/ostorlab_actions@v1.1.0
         with:
           scan_profile: fast_scan # Specify which scan profile to use for the scan (check scan section).
           asset_type: android-apk # type of asset to scan.
