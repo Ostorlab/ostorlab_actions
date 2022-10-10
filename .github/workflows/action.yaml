@@ -4,7 +4,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test ostorlab CI actions.
     steps:
-      - uses: ./
+      - uses: .
       - name: build ostorlab.apk
         run: mv tests/InsecureBankv2.apk ostorlab.apk
       - name: Launch Ostorlab scan
