@@ -4,12 +4,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Test ostorlab CI actions.
     steps:
-      - uses: .
+      - uses: actions/checkout@v2
       - name: build ostorlab.apk
         run: mv tests/InsecureBankv2.apk ostorlab.apk
       - name: Launch Ostorlab scan
         id: start_scan
-        uses: Ostorlab/ostorlab_actions@v1.0.3
+        uses: ./
         with:
           scan_profile: fast_scan # Specify which scan profile to use for the scan (check scan section).
           asset_type: android-apk # type of asset to scan.
