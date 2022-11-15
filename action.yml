@@ -23,6 +23,7 @@ inputs:
   max_wait_minutes:
     description: Specifies the maximum number of minutes to wait for scan results.
     required: false
+    default: 20
   extra:
     description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials.
     required: false
