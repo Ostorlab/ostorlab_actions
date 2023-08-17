@@ -42,6 +42,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: build ostorlab.apk
         run: mv InsecureBankv2.apk ostorlab.apk
+      - name: Sbom files
       - name: Launch Ostorlab scan
         id: start_scan
         uses: Ostorlab/ostorlab_actions@v1.1.1
@@ -56,7 +57,16 @@ jobs:
       - name: Get scan id
         run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 
-```   
+```
+
+### Sbom Files
+
+You can supply your sbom files to enhance the scan analysis, to do so use the `extra` 
+input to pass `--sbom-files***`, for example to add package-lock.json file use the following example:
+
+```yaml
+extra:  --sbom-files package-lock.json
+```
 
 ### Test Credentials
 
