@@ -42,7 +42,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: build ostorlab.apk
         run: mv InsecureBankv2.apk ostorlab.apk
-      - name: Sbom files
       - name: Launch Ostorlab scan
         id: start_scan
         uses: Ostorlab/ostorlab_actions@v1.1.1
@@ -62,10 +61,10 @@ jobs:
 ### Sbom/Lock Files
 
 You can supply your SBOM/Lock files to enhance the scan analysis, to do so use the `extra` 
-input to pass `--sbom-files***`, for example to add package-lock.json file use the following example:
+input to pass `--sbom***`, for example to add package-lock.json file use the following example:
 
 ```yaml
-extra:  --sbom-files package-lock.json
+extra:  --sbom package-lock.json
 ```
 Here you can see the list of the supported files:
 
