@@ -59,14 +59,34 @@ jobs:
 
 ```
 
-### Sbom Files
+### Sbom/Lock Files
 
-You can supply your sbom files to enhance the scan analysis, to do so use the `extra` 
+You can supply your SBOM/Lock files to enhance the scan analysis, to do so use the `extra` 
 input to pass `--sbom-files***`, for example to add package-lock.json file use the following example:
 
 ```yaml
 extra:  --sbom-files package-lock.json
 ```
+Here you can see the list of the supported files:
+
+- buildscript-gradle.lockfile
+- Cargo.lock,
+- composer.lock,
+- conan.lock,
+- Gemfile.lock,
+- go.mod,
+- gradle.lockfile,
+- mix.lock,
+- Pipfile.lock,
+- package-lock.json,
+- packages.lock.json,
+- pnpm-lock.yaml,
+- poetry.lock,
+- pom.xml,
+- pubspec.lock,
+- requirements.txt,
+- yarn.lock,
+
 
 ### Test Credentials
 
