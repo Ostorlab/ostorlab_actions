@@ -56,7 +56,36 @@ jobs:
       - name: Get scan id
         run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 
-```   
+```
+
+### Sbom/Lock Files
+
+You can supply your SBOM/Lock files to enhance the scan analysis, to do so use the `extra` 
+input to pass `--sbom***`, for example to add package-lock.json file use the following example:
+
+```yaml
+extra:  --sbom package-lock.json
+```
+Here you can see the list of the supported files:
+
+- buildscript-gradle.lockfile
+- Cargo.lock,
+- composer.lock,
+- conan.lock,
+- Gemfile.lock,
+- go.mod,
+- gradle.lockfile,
+- mix.lock,
+- Pipfile.lock,
+- package-lock.json,
+- packages.lock.json,
+- pnpm-lock.yaml,
+- poetry.lock,
+- pom.xml,
+- pubspec.lock,
+- requirements.txt,
+- yarn.lock,
+
 
 ### Test Credentials
 

@@ -11,6 +11,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: build ostorlab.apk
         run: mv tests/InsecureBankv2.apk ostorlab.apk
+      - name: Get sbom file
+        run: |
+          mv tests/package-lock.json package-lock.json
       - name: Launch Ostorlab scan
         id: start_scan
         uses: ./
