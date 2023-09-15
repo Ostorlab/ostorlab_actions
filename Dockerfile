@@ -7,4 +7,4 @@ RUN pip install --prefix=/install ostorlab
 FROM base
 WORKDIR /root/
 COPY --from=builder /install /usr/local
-CMD ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE"  --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" "$INPUT_EXTRA" $INPUT_ASSET_TYPE $INPUT_TARGET
+CMD ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE"  --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
