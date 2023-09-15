@@ -1,6 +1,6 @@
 on:
-  - push
-  - workflow_call:
+  push
+  workflow_call:
     inputs:
       n1:
         default: 'phone number'
