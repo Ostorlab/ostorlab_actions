@@ -34,8 +34,33 @@ outputs:
   status:
     description: status of scan.
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "composite"
+  steps:
+    - name: Set up Python3.11
+      uses: actions/setup-python@v5.0.0
+      with:
+        python-version: 3.11
+
+    - name: Install Ostorlab
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install ostorlab
+      shell: bash
+
+    - name: Run Scan
+      run: |
+        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE"  --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
+      shell: bash
+      env:
+        INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
+        INPUT_SCAN_TITLE: ${{ inputs.scan_title }}
+        INPUT_SCAN_PROFILE: ${{ inputs.scan_profile }}
+        INPUT_BREAK_ON_RISK_RATING: ${{ inputs.break_on_risk_rating }}
+        INPUT_MAX_WAIT_MINUTES: ${{ inputs.max_wait_minutes }}
+        INPUT_EXTRA: ${{ inputs.extra }}
+        INPUT_ASSET_TYPE: ${{ inputs.asset_type }}
+        INPUT_TARGET: ${{ inputs.target }}
+
 branding:
   icon: "shield"
   color: "blue"
