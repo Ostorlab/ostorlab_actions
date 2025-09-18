@@ -25,7 +25,7 @@ inputs:
     required: false
     default: 20
   extra:
-    description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials.
+    description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials or ui prompts (UI prompts are a powerful feature that allows you to use natural language to tell the scanner how to navigate the app.)
     required: false
 
 outputs:
@@ -49,7 +49,7 @@ runs:
 
     - name: Run Scan
       run: |
-        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" --source="github" --repository="$GITHUB_REPOSITORY" --pr-number="$GITHUB_PR_NUMBER" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
+        eval "ostorlab --api-key=\"$INPUT_OSTORLAB_API_KEY\" ci-scan run --log-flavor=github --title=\"$INPUT_SCAN_TITLE\" --scan-profile=\"$INPUT_SCAN_PROFILE\" --break-on-risk-rating=\"$INPUT_BREAK_ON_RISK_RATING\" --max-wait-minutes=\"$INPUT_MAX_WAIT_MINUTES\" --source=\"github\" --repository=\"$GITHUB_REPOSITORY\" --pr-number=\"$GITHUB_PR_NUMBER\" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET"
       shell: bash
       env:
         INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
