@@ -52,19 +52,7 @@ runs:
 
     - name: Run Scan
       run: |
-        # Build UI prompts arguments from the multi-line string
-        UI_PROMPTS_ARGS=""
-        if [ -n "$INPUT_UI_PROMPTS" ]; then
-          while IFS= read -r prompt; do
-            # Trim whitespace and ignore empty lines
-            trimmed_prompt=$(echo "$prompt" | xargs)
-            if [ -n "$trimmed_prompt" ]; then
-              UI_PROMPTS_ARGS="$UI_PROMPTS_ARGS --ui-prompt=\"$trimmed_prompt\""
-            fi
-          done <<< "$INPUT_UI_PROMPTS"
-        fi
-        
-        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" --source="github" --repository="$GITHUB_REPOSITORY" --pr-number="$GITHUB_PR_NUMBER" $UI_PROMPTS_ARGS $INPUT_ASSET_TYPE $INPUT_TARGET
+        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" --source="github" --repository="$GITHUB_REPOSITORY" --pr-number="$GITHUB_PR_NUMBER" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET      shell: bash
       shell: bash
       env:
         INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
