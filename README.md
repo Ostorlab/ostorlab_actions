@@ -100,56 +100,6 @@ and values, add the following input:
 extra: --test-credentials-login test_login --test-credentials-password test_pass --test-credentials-role ci_role --test-credentials-name foo1 --test-credentials-value bar1 --test-credentials-name foo2 --test-credentials-value bar2
 ```
 
-### UI Prompts
-
-UI Prompts are a powerful feature that allows you to use natural language to guide the scanner on how to navigate and interact with your mobile application during dynamic analysis. This enables the scanner to perform more comprehensive testing by following specific user flows and testing authenticated features.
-
-#### What are UI Prompts?
-
-UI Prompts are natural language instructions that tell the Ostorlab scanner how to interact with your application's user interface. They can include:
-- Login instructions with specific credentials
-- Navigation steps to reach certain features
-- Actions to perform (like making transactions, filling forms, etc.)
-- Sequential workflows that simulate real user behavior
-
-#### How to Use UI Prompts
-
-To add UI prompts to your scan, use the `extra` input with the `--ui-prompt` flag. You can specify multiple UI prompts by repeating the `--ui-prompt` flag for each instruction:
-
-```yaml
-extra: --ui-prompt="First instruction here" --ui-prompt="Second instruction here"
-```
-
-#### Examples
-
-**Basic Login Flow:**
-```yaml
-extra: --ui-prompt="Login with username 'test_user' and password 'test_pass'"
-```
-
-**Complex User Flow:**
-```yaml
-extra: --ui-prompt="Ensure to login with username test_login and password test_pass" --ui-prompt="Navigate to the Transfer Funds section and make a transfer of 100 to account number 123456"
-```
-
-**Combined with Test Credentials:**
-```yaml
-extra: --test-credentials-login test_login --test-credentials-password test_pass --test-credentials-role ci_role --ui-prompt="Login using the provided test credentials" --ui-prompt="Navigate to the settings page and update user profile"
-```
-
-**Multi-step E-commerce Flow:**
-```yaml
-extra: --ui-prompt="Login with the test account credentials" --ui-prompt="Add a product to the shopping cart" --ui-prompt="Proceed to checkout and complete the purchase flow"
-```
-#### UI Prompt Use Cases
-
-- **Authentication Testing**: Guide the scanner through login processes
-- **Feature Coverage**: Ensure the scanner tests specific app features
-- **User Journey Testing**: Simulate complete user workflows
-- **Permission Testing**: Navigate through permission-sensitive areas
-- **Transaction Testing**: Test financial or sensitive operations
-- **Form Validation**: Test form inputs and validation logic
-
 ### Action inputs
 
 The Github actions the following options:
