@@ -116,6 +116,7 @@ The Github actions the following options:
 - **`max_wait_minutes`**: [Optional] - Max wait time in minutes, pipeline will not fail if the scan times out.
 - **`extra`**: [Optional] - Extra argument flags to pass to the Ostorlab ci-scan CLI. Common use case is passing the scan
   test credentials.
+- **`ui_prompts`**: [Optional] - List of UI prompts (natural language instructions) to guide the scanner on how to navigate the app during dynamic analysis. Useful for automating login or walkthrough steps.
 
 ### Action outputs
 
