@@ -25,7 +25,10 @@ inputs:
     required: false
     default: 20
   extra:
-    description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials or ui prompts (UI prompts are a powerful feature that allows you to use natural language to tell the scanner how to navigate the app.)
+    description: Extra args to be passed to Ostorlab CLI to create a scan, common case is setting test credentials.
+    required: false
+  ui_prompts:
+    description: List of UI prompts to be passed to Ostorlab CLI. UI prompts are a powerful feature that allows you to use natural language to tell the scanner how to navigate the app.
     required: false
 
 outputs:
@@ -49,7 +52,22 @@ runs:
 
     - name: Run Scan
       run: |
-        eval "ostorlab --api-key=\"$INPUT_OSTORLAB_API_KEY\" ci-scan run --log-flavor=github --title=\"$INPUT_SCAN_TITLE\" --scan-profile=\"$INPUT_SCAN_PROFILE\" --break-on-risk-rating=\"$INPUT_BREAK_ON_RISK_RATING\" --max-wait-minutes=\"$INPUT_MAX_WAIT_MINUTES\" --source=\"github\" --repository=\"$GITHUB_REPOSITORY\" --pr-number=\"$GITHUB_PR_NUMBER\" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET"
+        # Build UI prompts arguments from the list
+        UI_PROMPTS_ARGS=""
+        if [ -n "$INPUT_UI_PROMPTS" ]; then
+          # Convert each line to a --ui-prompt argument
+          while IFS= read -r prompt; do
+            if [ -n "$prompt" ] && [ "$prompt" != "-" ]; then
+              # Remove leading "- " if present and add to arguments
+              clean_prompt=$(echo "$prompt" | sed 's/^- *//')
+              if [ -n "$clean_prompt" ]; then
+                UI_PROMPTS_ARGS="$UI_PROMPTS_ARGS --ui-prompt=\"$clean_prompt\""
+              fi
+            fi
+          done <<< "$INPUT_UI_PROMPTS"
+        fi
+        
+        ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" --source="github" --repository="$GITHUB_REPOSITORY" --pr-number="$GITHUB_PR_NUMBER" $UI_PROMPTS_ARGS $INPUT_ASSET_TYPE $INPUT_TARGET
       shell: bash
       env:
         INPUT_OSTORLAB_API_KEY: ${{ inputs.ostorlab_api_key }}
@@ -58,6 +76,7 @@ runs:
         INPUT_BREAK_ON_RISK_RATING: ${{ inputs.break_on_risk_rating }}
         INPUT_MAX_WAIT_MINUTES: ${{ inputs.max_wait_minutes }}
         INPUT_EXTRA: ${{ inputs.extra }}
+        INPUT_UI_PROMPTS: ${{ join(inputs.ui_prompts, '\n- ') }}
         INPUT_ASSET_TYPE: ${{ inputs.asset_type }}
         INPUT_TARGET: ${{ inputs.target }}
         GITHUB_REPOSITORY: ${{ github.repository }}
