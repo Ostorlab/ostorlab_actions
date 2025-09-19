@@ -19,17 +19,17 @@ jobs:
           asset_type: android-apk # type of asset to scan.
           target: ostorlab.apk # path for target tto scan.
           scan_title: title_scan_ci_ui_automation # type a title for your scan.
-          ostorlab_api_key: "LbSkqOe7.qQI7z1kZnAENsJEprShmeGSUqO3hkJcF" # your secret api key.
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }} # your secret api key.
           break_on_risk_rating: HIGH # Wait for the scan results and force the action to fail if the scan risk is higher
           max_wait_minutes: 30
           extra: --test-credentials-login test_login --test-credentials-password test_pass --test-credentials-role ci_role --test-credentials-name foo1 --test-credentials-value bar1 --test-credentials-name foo2 --test-credentials-value bar2 --sbom package-lock.json
-          ui_prompts:
-            - "Click on the login button"
-            - "Enter username 'admin' and password 'password123'"
-            - "Navigate to the settings menu"
-            - "Click on account information"
-            - "Test the payment functionality"
-            - "Navigate through all main menu items"
+          ui_prompts: |
+            Click on the login button
+            Enter username 'admin' and password 'password123'
+            Navigate to the settings menu
+            Click on account information
+            Test the payment functionality
+            Navigate through all main menu items
 
       - name: Get scan id
         run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
