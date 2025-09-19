@@ -52,17 +52,14 @@ runs:
 
     - name: Run Scan
       run: |
-        # Build UI prompts arguments from the list
+        # Build UI prompts arguments from the multi-line string
         UI_PROMPTS_ARGS=""
         if [ -n "$INPUT_UI_PROMPTS" ]; then
-          # Convert each line to a --ui-prompt argument
           while IFS= read -r prompt; do
-            if [ -n "$prompt" ] && [ "$prompt" != "-" ]; then
-              # Remove leading "- " if present and add to arguments
-              clean_prompt=$(echo "$prompt" | sed 's/^- *//')
-              if [ -n "$clean_prompt" ]; then
-                UI_PROMPTS_ARGS="$UI_PROMPTS_ARGS --ui-prompt=\"$clean_prompt\""
-              fi
+            # Trim whitespace and ignore empty lines
+            trimmed_prompt=$(echo "$prompt" | xargs)
+            if [ -n "$trimmed_prompt" ]; then
+              UI_PROMPTS_ARGS="$UI_PROMPTS_ARGS --ui-prompt=\"$trimmed_prompt\""
             fi
           done <<< "$INPUT_UI_PROMPTS"
         fi
@@ -76,7 +73,7 @@ runs:
         INPUT_BREAK_ON_RISK_RATING: ${{ inputs.break_on_risk_rating }}
         INPUT_MAX_WAIT_MINUTES: ${{ inputs.max_wait_minutes }}
         INPUT_EXTRA: ${{ inputs.extra }}
-        INPUT_UI_PROMPTS: ${{ join(inputs.ui_prompts, '\n- ') }}
+        INPUT_UI_PROMPTS: ${{ inputs.ui_prompts }}
         INPUT_ASSET_TYPE: ${{ inputs.asset_type }}
         INPUT_TARGET: ${{ inputs.target }}
         GITHUB_REPOSITORY: ${{ github.repository }}
