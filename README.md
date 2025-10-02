@@ -2,7 +2,7 @@
 
 ![Ostorlab ci_can for GithubAction](https://i.ibb.co/XF3cwWw/image.png)
 
-Ostorlab scans mobile applications (Android APK, AAB, iOS IPA) and web applications for security and privacy issues. It provides full
+Ostorlab scans mobile applications (Android APK, AAB, iOS IPA) and web API and Web Applications for security and privacy issues. It provides full
 coverage by detecting issues on both the client-side and service-side, covering both the application code and
 all of its dependencies.
 
