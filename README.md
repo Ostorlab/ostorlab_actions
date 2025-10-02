@@ -2,7 +2,7 @@
 
 ![Ostorlab ci_can for GithubAction](https://i.ibb.co/XF3cwWw/image.png)
 
-Ostorlab scans mobile applications (Android APK, AAB, iOS IPA) for security and privacy issues. It provides full
+Ostorlab scans mobile applications (Android APK, AAB, iOS IPA) and web applications for security and privacy issues. It provides full
 coverage by detecting issues on both the client-side and service-side, covering both the application code and
 all of its dependencies.
 
@@ -25,7 +25,7 @@ To use Ostorlab Github Action, the first step is to generate an API key. To do s
 
 ![api key](https://github.com/jenkinsci/ostorlab-plugin/raw/master/images/jenkins-apikey.png)
 
-Once you have generated your API, add it to GitHub Secrets. Make sure the name matches the secrets.<name> in the YAML
+Once you have generated your API, add it to GitHub Secrets. Make sure the name matches the secrets.<n> in the YAML
 file. You follow these steps for more detailed
 instructions [Github:Creating encrypted secrets for a repository](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
 
@@ -57,6 +57,41 @@ jobs:
         run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 
 ```
+
+### Scanning Web Applications
+
+Ostorlab also supports scanning web applications. You can specify a single web application or multiple web applications to scan. Below is an example of scanning multiple web applications:
+
+```yaml
+on: [push]
+jobs:
+  ostorlab_web_scan:
+    runs-on: ubuntu-latest
+    name: Test ostorlab web scan.
+    steps:
+      - uses: actions/checkout@v2
+      - name: Launch Ostorlab web scan
+        id: start_scan
+        uses: Ostorlab/ostorlab_actions@v1.1.1
+        with:
+          scan_profile: full_web_scan
+          asset_type: link --url
+          target: https://target1.ostorlab.co --url https://target2.ostorlab.co --url https://target3.ostorlab.co
+          scan_title: web_scan_ci
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
+          break_on_risk_rating: HIGH
+          max_wait_minutes: 60
+      - name: Get scan id
+        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
+```
+
+When scanning web applications, make sure to:
+- Use `scan_profile: full_web_scan` for comprehensive web scanning
+- Set `asset_type: link --url` to indicate you're scanning web applications
+- In the `target` field, list all URLs you want to scan, with each additional URL preceded by the `--url` flag
+- For example: `target: https://target1.ostorlab.co --url https://target2.ostorlab.co --url https://target3.ostorlab.co`
+
+This configuration allows you to scan multiple web applications in a single job, making it efficient to test related web services together.
 
 ### Sbom/Lock Files
 
@@ -104,11 +139,11 @@ extra: --test-credentials-login test_login --test-credentials-password test_pass
 
 The Github actions the following options:
 
-- **`scan_profile`** *(['fast_scan', 'full_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
-  static only analysis and `full_scan` for full static, dynamic and backend coverage).
-- **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa'])*: [Required] - Target asset, Ostorlab supports APK, AAB
-  and IPA.
-- **`target`**: [Required] - target file to scan.
+- **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
+  static only analysis, `full_scan` for full static, dynamic and backend coverage, and `full_web_scan` for web application scanning).
+- **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
+  IPA, and web applications (link).
+- **`target`**: [Required] - target file to scan or URL for web applications.
 - **`ostorlab_api_key`**: [Required] - API Key from Ostorlab portal.
 - **`scan_title`**: [Optional] - A scan title to identify your scan.
 - **`break_on_risk_rating`** *(['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])*: [Optional] - Wait for the scan results and
