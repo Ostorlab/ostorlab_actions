@@ -75,8 +75,8 @@ jobs:
         uses: Ostorlab/ostorlab_actions@v1.1.1
         with:
           scan_profile: full_web_scan
-          asset_type: link --url
-          target: https://target1.ostorlab.co --url https://target2.ostorlab.co --url https://target3.ostorlab.co
+          asset_type: link
+          target: --url https://target1.co --url https://target2.ostorlab.co --url https://target3.ostorlab.co --url https://target4.ostorlab.co
           scan_title: web_scan_ci
           ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
           break_on_risk_rating: HIGH
@@ -87,9 +87,9 @@ jobs:
 
 When scanning web applications, make sure to:
 - Use `scan_profile: full_web_scan` for comprehensive web scanning
-- Set `asset_type: link --url` to indicate you're scanning web applications
-- In the `target` field, list all URLs you want to scan, with each additional URL preceded by the `--url` flag
-- For example: `target: https://target1.ostorlab.co --url https://target2.ostorlab.co --url https://target3.ostorlab.co`
+- Set `asset_type: link` to indicate you're scanning web applications
+- In the `target` field, list all URLs you want to scan using the `--url` flag before each URL
+- For example: `target: --url https://target1.co --url https://target2.ostorlab.co --url https://target3.ostorlab.co --url https://target4.ostorlab.co`
 
 This configuration allows you to scan multiple web applications in a single job, making it efficient to test related web services together.
 
@@ -142,8 +142,8 @@ The Github actions the following options:
 - **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
   static only analysis, `full_scan` for full static, dynamic and backend coverage, and `full_web_scan` for web application scanning).
 - **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
-  IPA, and web applications (link).
-- **`target`**: [Required] - target file to scan or URL for web applications.
+  IPA, and web applications (link). For web applications, use `link`.
+- **`target`**: [Required] - For mobile applications: path to the file to scan. For web applications: list of URLs to scan using the format `--url https://example1.com --url https://example2.com`.
 - **`ostorlab_api_key`**: [Required] - API Key from Ostorlab portal.
 - **`scan_title`**: [Optional] - A scan title to identify your scan.
 - **`break_on_risk_rating`** *(['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])*: [Optional] - Wait for the scan results and
