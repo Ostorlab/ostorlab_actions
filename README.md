@@ -25,7 +25,7 @@ To use Ostorlab Github Action, the first step is to generate an API key. To do s
 
 ![api key](https://github.com/jenkinsci/ostorlab-plugin/raw/master/images/jenkins-apikey.png)
 
-Once you have generated your API, add it to GitHub Secrets. Make sure the name matches the secrets.<n> in the YAML
+Once you have generated your API, add it to GitHub Secrets. Make sure the name matches the secrets.<name> in the YAML
 file. You follow these steps for more detailed
 instructions [Github:Creating encrypted secrets for a repository](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)
 
