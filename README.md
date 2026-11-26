@@ -96,9 +96,9 @@ This configuration allows you to scan multiple web applications in a single job,
 ### Scanning Source Code Repositories
 
 To scan the current repository, set `asset_type: repository` and omit `target`. The action runs static application
-security testing (SAST), software composition analysis (SCA) and secret detection on the pull request head commit for
-`pull_request` events, and on `github.sha` for other events such as `push`. Ostorlab fetches the code itself, so the
-workflow needs no checkout.
+security testing (SAST), software composition analysis (SCA) and secret detection on the commit. On `pull_request`
+events that is the pull request head commit; on other events, such as `push`, it is `github.sha`. Ostorlab fetches the
+code itself, so the workflow needs no checkout.
 
 **Requirement:** the repository must be connected to the source code integration of your Ostorlab organisation, see
 [Configure a Source Code Integration](https://docs.ostorlab.co/tutorials/source_code_scan.html). Otherwise the job fails
