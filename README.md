@@ -126,6 +126,9 @@ jobs:
         run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 ```
 
+Pull requests from forks are not scanned: GitHub does not pass repository secrets, such as `ostorlab_api_key`, to
+workflows triggered by pull requests from forks.
+
 Repository scanning requires `v2.2.0` or later of this action; older tags, such as `v1.1.1`, do not support
 `asset_type: repository`.
 
