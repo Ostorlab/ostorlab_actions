@@ -120,6 +120,9 @@ jobs:
           max_wait_minutes: 60
 ```
 
+Repository scanning requires `v2.2.0` or later of this action; older tags such as the `v1.1.1` used in the
+examples above do not support `asset_type: repository`.
+
 ### Sbom/Lock Files
 
 You can supply your SBOM/Lock files to enhance the scan analysis, to do so use the `extra` 
