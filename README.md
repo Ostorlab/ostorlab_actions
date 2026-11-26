@@ -93,6 +93,31 @@ When scanning web applications, make sure to:
 
 This configuration allows you to scan multiple web applications in a single job, making it efficient to test related web services together.
 
+### Scanning Source Code Repositories
+
+Ostorlab also scans source code repositories (SAST, SCA and secret detection). The repository must be reachable through
+the source code integration of your Ostorlab organisation. The action scans the current repository at the commit being
+built, Ostorlab fetches the code itself, so no checkout and no `target` are needed:
+
+```yaml
+on: [push, pull_request]
+jobs:
+  ostorlab_source_code_scan:
+    runs-on: ubuntu-latest
+    name: Test ostorlab source code scan.
+    steps:
+      - name: Launch Ostorlab source code scan
+        id: start_scan
+        uses: Ostorlab/ostorlab_actions@v2.2.0
+        with:
+          scan_profile: source_code_fast_scan
+          asset_type: repository
+          scan_title: source_code_scan_ci
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
+          break_on_risk_rating: HIGH
+          max_wait_minutes: 60
+```
+
 ### Sbom/Lock Files
 
 You can supply your SBOM/Lock files to enhance the scan analysis, to do so use the `extra` 
