@@ -6,7 +6,7 @@ inputs:
     required: true
     default: fast_scan
   asset_type:
-    description: Type of asset to scan. (['android-apk', 'android-aab', 'ios-ipa', 'repository'])
+    description: Type of asset to scan. (['android-apk', 'android-aab', 'ios-ipa', 'link', 'repository'])
     required: true
   target:
     description: Path to file .apk|.ios file. Not used for the repository asset type, which scans the current repository and commit.
