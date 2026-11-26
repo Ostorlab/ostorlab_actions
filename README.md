@@ -125,8 +125,8 @@ jobs:
         run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 ```
 
-Repository scanning requires `v2.2.0` or later of this action; older tags such as the `v1.1.1` used in the
-examples above do not support `asset_type: repository`.
+Repository scanning requires `v2.2.0` or later of this action; older tags, such as `v1.1.1`, do not support
+`asset_type: repository`.
 
 ### Sbom/Lock Files
 
