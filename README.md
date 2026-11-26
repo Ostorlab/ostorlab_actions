@@ -165,11 +165,13 @@ extra: --test-credentials-login test_login --test-credentials-password test_pass
 
 The Github actions the following options:
 
-- **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
-  static only analysis, `full_scan` for full static, dynamic and backend coverage, and `full_web_scan` for web application scanning).
-- **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
-  IPA, and web applications (link). For web applications, use `link`.
-- **`target`**: [Required] - For mobile applications: path to the file to scan. For web applications: list of URLs to scan using the format `--url https://example1.com --url https://example2.com`.
+- **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan', 'source_code_fast_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
+  static only analysis, `full_scan` for full static, dynamic and backend coverage, `full_web_scan` for web application scanning,
+  and `source_code_fast_scan` for source code repository scanning).
+- **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link', 'repository'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
+  IPA, web applications (link) and source code repositories (repository). For web applications, use `link`.
+- **`target`**: [Required except for `repository`] - For mobile applications: path to the file to scan. For web applications: list of URLs to scan using the format `--url https://example1.com --url https://example2.com`.
+  For `repository`, omit it: the repository and commit are derived from the workflow context.
 - **`ostorlab_api_key`**: [Required] - API Key from Ostorlab portal.
 - **`scan_title`**: [Optional] - A scan title to identify your scan.
 - **`break_on_risk_rating`** *(['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])*: [Optional] - Wait for the scan results and
