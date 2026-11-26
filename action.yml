@@ -6,11 +6,11 @@ inputs:
     required: true
     default: fast_scan
   asset_type:
-    description: Type of asset to scan. (['android-apk', 'android-aab', 'ios-ipa'])
+    description: Type of asset to scan. (['android-apk', 'android-aab', 'ios-ipa', 'link', 'repository'])
     required: true
   target:
-    description: Path to file .apk|.ios file.
-    required: true
+    description: Path to file .apk|.ios file. Not used for the repository asset type, which scans the current repository and commit.
+    required: false
   scan_title:
     description: Title for your scan.
     required: false
@@ -36,10 +36,10 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up Python3.11
+    - name: Set up Python3.13
       uses: actions/setup-python@v5.0.0
       with:
-        python-version: 3.11
+        python-version: 3.13
 
     - name: Install Ostorlab
       run: |
@@ -49,6 +49,9 @@ runs:
 
     - name: Run Scan
       run: |
+        if [ "$INPUT_ASSET_TYPE" = "repository" ]; then
+          INPUT_TARGET="--full-name $GITHUB_REPOSITORY --commit $COMMIT_SHA"
+        fi
         ostorlab --api-key="$INPUT_OSTORLAB_API_KEY" ci-scan run --log-flavor=github --title="$INPUT_SCAN_TITLE" --scan-profile="$INPUT_SCAN_PROFILE" --break-on-risk-rating="$INPUT_BREAK_ON_RISK_RATING" --max-wait-minutes="$INPUT_MAX_WAIT_MINUTES" --source="github" --repository="$GITHUB_REPOSITORY" --pr-number="$GITHUB_PR_NUMBER" $INPUT_EXTRA $INPUT_ASSET_TYPE $INPUT_TARGET
       shell: bash
       env:
@@ -62,6 +65,7 @@ runs:
         INPUT_TARGET: ${{ inputs.target }}
         GITHUB_REPOSITORY: ${{ github.repository }}
         GITHUB_PR_NUMBER: ${{ github.event.pull_request.number }}
+        COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
 
 branding:
   icon: "shield"

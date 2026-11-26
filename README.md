@@ -2,7 +2,7 @@
 
 ![Ostorlab ci_can for GithubAction](https://i.ibb.co/XF3cwWw/image.png)
 
-Ostorlab scans mobile applications (Android APK, AAB, iOS IPA) and web API and Web Applications for security and privacy issues. It provides full
+Ostorlab scans mobile applications (Android APK, AAB, iOS IPA), web APIs and web applications, and source code repositories for security and privacy issues. It provides full
 coverage by detecting issues on both the client-side and service-side, covering both the application code and
 all of its dependencies.
 
@@ -93,6 +93,45 @@ When scanning web applications, make sure to:
 
 This configuration allows you to scan multiple web applications in a single job, making it efficient to test related web services together.
 
+### Scanning Source Code Repositories
+
+To scan the current repository, set `asset_type: repository` and omit `target`. The action runs static application
+security testing (SAST), software composition analysis (SCA) and secret detection on the commit. On `pull_request`
+events that is the pull request head commit; on other events, such as `push`, it is `github.sha`. Ostorlab fetches the
+code itself, so the workflow needs no checkout.
+
+**Requirement:** the repository must be connected to the source code integration of your Ostorlab organisation, see
+[Configure a Source Code Integration](https://docs.ostorlab.co/tutorials/source_code_scan.html). Otherwise the job fails
+with exit code 2 before any scan is created:
+`Expected one repository named <owner/name> in the source code integrations of the organisation, found 0.`
+
+```yaml
+on: [push, pull_request]
+jobs:
+  ostorlab_source_code_scan:
+    runs-on: ubuntu-latest
+    name: Test ostorlab source code scan.
+    steps:
+      - name: Launch Ostorlab source code scan
+        id: start_scan
+        uses: Ostorlab/ostorlab_actions@v2.2.0
+        with:
+          scan_profile: source_code_fast_scan
+          asset_type: repository
+          scan_title: source_code_scan_ci
+          ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
+          break_on_risk_rating: HIGH
+          max_wait_minutes: 60
+      - name: Get scan id
+        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
+```
+
+Pull requests from forks are not scanned: GitHub does not pass repository secrets, such as `ostorlab_api_key`, to
+workflows triggered by pull requests from forks.
+
+Repository scanning requires `v2.2.0` or later of this action; older tags, such as `v1.1.1`, do not support
+`asset_type: repository`.
+
 ### Sbom/Lock Files
 
 You can supply your SBOM/Lock files to enhance the scan analysis, to do so use the `extra` 
@@ -139,11 +178,13 @@ extra: --test-credentials-login test_login --test-credentials-password test_pass
 
 The Github actions the following options:
 
-- **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
-  static only analysis, `full_scan` for full static, dynamic and backend coverage, and `full_web_scan` for web application scanning).
-- **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
-  IPA, and web applications (link). For web applications, use `link`.
-- **`target`**: [Required] - For mobile applications: path to the file to scan. For web applications: list of URLs to scan using the format `--url https://example1.com --url https://example2.com`.
+- **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan', 'source_code_fast_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
+  static only analysis, `full_scan` for full static, dynamic and backend coverage, `full_web_scan` for web application scanning,
+  and `source_code_fast_scan` for a fast static pass running SAST, SCA and secret detection on a source code repository).
+- **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link', 'repository'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
+  IPA, web applications (link) and source code repositories (repository). For web applications, use `link`.
+- **`target`**: [Required except for `repository`] - For mobile applications: path to the file to scan. For web applications: list of URLs to scan using the format `--url https://example1.com --url https://example2.com`.
+  For `repository`, omit it: the repository and commit are derived from the workflow context.
 - **`ostorlab_api_key`**: [Required] - API Key from Ostorlab portal.
 - **`scan_title`**: [Optional] - A scan title to identify your scan.
 - **`break_on_risk_rating`** *(['HIGH', 'MEDIUM', 'LOW','POTENTIALLY])*: [Optional] - Wait for the scan results and
