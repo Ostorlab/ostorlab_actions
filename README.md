@@ -121,6 +121,8 @@ jobs:
           ostorlab_api_key: ${{ secrets.ostorlab_api_key }}
           break_on_risk_rating: HIGH
           max_wait_minutes: 60
+      - name: Get scan id
+        run: echo "Scan Created with id ${{ steps.start_scan.outputs.scan_id }} you can access the full report at https://report.ostorlab.co/scan/${{ steps.start_scan.outputs.scan_id }}/"
 ```
 
 Repository scanning requires `v2.2.0` or later of this action; older tags such as the `v1.1.1` used in the
