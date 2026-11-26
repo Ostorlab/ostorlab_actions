@@ -180,7 +180,7 @@ The Github actions the following options:
 
 - **`scan_profile`** *(['fast_scan', 'full_scan', 'full_web_scan', 'source_code_fast_scan'])*: [Required] - Specifies the scan profile ( `fast_scan` for fast
   static only analysis, `full_scan` for full static, dynamic and backend coverage, `full_web_scan` for web application scanning,
-  and `source_code_fast_scan` for source code repository scanning).
+  and `source_code_fast_scan` for a fast static pass running SAST, SCA and secret detection on a source code repository).
 - **`asset_type`** *(['android-apk', 'android-aab', 'ios-ipa', 'link', 'repository'])*: [Required] - Target asset, Ostorlab supports APK, AAB,
   IPA, web applications (link) and source code repositories (repository). For web applications, use `link`.
 - **`target`**: [Required except for `repository`] - For mobile applications: path to the file to scan. For web applications: list of URLs to scan using the format `--url https://example1.com --url https://example2.com`.
